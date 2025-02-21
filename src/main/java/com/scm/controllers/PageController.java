@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 public class PageController {
 
@@ -15,4 +16,21 @@ public class PageController {
         model.addAttribute("google", "https://www.google.com");
         return "home";
     }
+
+    //about page
+
+    @RequestMapping("/about")
+    public String aboutPage(Model model) {
+        model.addAttribute("isLogin", false);
+        return "about";
+    }
+    
+    //service page
+
+    @RequestMapping("/services")
+    public String servicePage() {
+
+        return "services";
+    }
+
 }
