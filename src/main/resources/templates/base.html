@@ -1,9 +1,22 @@
-<div th:fragment="parent(content)">
-    <h1>This is a perent fragement</h1>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur non eius mollitia quae aut!</p>
-    <div th:replace="${content}"></div>
-</div>
+<!DOCTYPE html>
+<html lang="en" th:fragment="parent(content,title)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link data-th-href="@{'/css/output.css'}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <title th:replace="${title}">SCM</title>
+</head>
+<body class="dark:bg-gray-900 dark:text-white">
 
-<div th:fragment="test">
-    <h1>This is a Testing Fragment</h1>
-</div>
+    <!-- -------navbar=--------- -->
+    <div data-th-replace="navbar :: navbar"></div>
+
+    <section data-th-replace="${content}"></section>
+    base page content
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>
