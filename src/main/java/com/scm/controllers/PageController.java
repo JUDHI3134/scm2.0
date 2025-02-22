@@ -1,12 +1,22 @@
 package com.scm.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.scm.entities.User;
+import com.scm.forms.UserForm;
+import com.scm.services.UserService;
 
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/home")
     public String home(Model model) {
@@ -50,9 +60,40 @@ public class PageController {
     //Register page
 
     @RequestMapping("/register")
-    public String RegisterPage() {
+    public String RegisterPage(Model model) {
 
+        UserForm userForm = new UserForm();
+        model.addAttribute("userForm", userForm);
         return "register";
+    }
+
+    //processing registration
+    @RequestMapping(value = "/registerForm", method = RequestMethod.POST)
+    public String processRegister(@ModelAttribute UserForm userForm) {
+        System.out.println("Processing Registraion");
+        //fetch form data
+        //validate formdata
+        System.out.println(userForm);
+        //save to db
+
+        // Userform ----->  User  
+        User user = User.builder()
+        .name(userForm.getName())
+        .email(userForm.getEmail())
+        .password(userForm.getPassword())
+        .phoneNumber(userForm.getPhoneNumber())
+        .about(userForm.getAbout())
+        .profilePic("https://img.freepik.com/free-vector/isolated-young-handsome-man-different-poses-white-background-illustration_632498-855.jpg?ga=GA1.1.2087950617.1738908788&semt=ais_hybrid")
+                .build();
+        
+        User savedUser = userService.saveUser(user);
+
+        System.out.println("USer saved..");
+
+        //message
+        //return to login page
+
+        return "redirect:/register";
     }
     
 
