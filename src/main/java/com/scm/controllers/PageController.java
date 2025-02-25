@@ -33,6 +33,12 @@ public class PageController {
         return "home";
     }
 
+    @RequestMapping("/")
+    public String indexPage() {
+        
+        return "home";
+    }
+
     //about page
 
     @RequestMapping("/about")
